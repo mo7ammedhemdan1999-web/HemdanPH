@@ -2499,7 +2499,7 @@
                 <div class="form-grid">
                   <div class="field">
                     <label>رابط اللوجو</label>
-                    <input id="settings-logo-url" placeholder="image/logo.png">
+                    <input id="settings-logo-url" placeholder="logo.png">
                   </div>
                   <div class="field">
                     <label>معاينة</label>
@@ -4906,7 +4906,7 @@
       const settings = state.settings || {};
       const appName = settings.appName || 'Pharma Financial Suite';
       const companyName = settings.companyName || 'Dr. Magdy Hemdan Pharmacies';
-      const logoUrl = settings.logoUrl || 'image/logo.png';
+      const logoUrl = settings.logoUrl || 'logo.png';
       return (
         '<div class="print-header">'
         + '<div class="print-header-left">'
@@ -6014,7 +6014,7 @@
 
     function getLogoUrl(){
       const s = state.settings || {};
-      return s.logoUrl || 'image/logo.png';
+      return s.logoUrl || 'logo.png';
     }
 
     function applySettingsVisuals(){
