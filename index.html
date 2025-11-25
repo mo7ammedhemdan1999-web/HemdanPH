@@ -2615,7 +2615,25 @@
     function loadState(){
       try{
         const raw = localStorage.getItem(LS_KEY);
-        if(!raw) return structuredClone(defaultState);
+        if(!raw){
+          const state = structuredClone(defaultState);
+          if(!Array.isArray(state.users)) state.users = [];
+          if(!state.users.length){
+            const defaultAdmin = {
+              id: 'u_admin',
+              username: 'admin',
+              displayName: 'Administrator',
+              role: 'admin',
+              isActive: true,
+              password: 'admin',
+              createdAt: new Date().toISOString()
+            };
+            state.users = [defaultAdmin];
+          }
+          (state.users || []).forEach(u=>{ if(typeof u.password === 'undefined') u.password = ''; });
+          state.currentUser = null;
+          return state;
+        }
         const obj = JSON.parse(raw);
         if(!obj.treasuryOpening) obj.treasuryOpening = {};
         const branchList = obj.branches && obj.branches.length ? obj.branches : defaultState.branches;
@@ -2669,7 +2687,23 @@
         return state;
       }catch(e){
         console.error(e);
-        return structuredClone(defaultState);
+        const state = structuredClone(defaultState);
+        if(!Array.isArray(state.users)) state.users = [];
+        if(!state.users.length){
+          const defaultAdmin = {
+            id: 'u_admin',
+            username: 'admin',
+            displayName: 'Administrator',
+            role: 'admin',
+            isActive: true,
+            password: 'admin',
+            createdAt: new Date().toISOString()
+          };
+          state.users = [defaultAdmin];
+        }
+        (state.users || []).forEach(u=>{ if(typeof u.password === 'undefined') u.password = ''; });
+        state.currentUser = null;
+        return state;
       }
     }
     function saveState(){
